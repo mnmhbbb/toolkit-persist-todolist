@@ -9,6 +9,7 @@ export interface Todo {
   createdAt: string;
   modifiedAt: string;
   deadline: string;
+  dday: number;
 }
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
       createdAt: '',
       modifiedAt: '',
       deadline: '',
+      dday: 0,
     },
   ],
   isOpen: false,
@@ -75,8 +77,20 @@ export const todoSlice = createSlice({
       state.isOpen = false;
       state.isEdit = false;
     },
+    removeCompleted(state) {
+      state.items = state.items.filter((todo) => todo.completed === false);
+    },
+    dday(state) {
+      const today: any = new Date();
+      state.items.forEach((todo) => {
+        const deadline: any = new Date(todo.deadline);
+        const diff = deadline - today;
+        todo.dday = Math.floor(diff / (1000 * 60 * 60 * 24));
+      });
+    },
   },
 });
 
-export const { toggleForm, add, closeForm, toggle, remove, editMode, modified } = todoSlice.actions;
+export const { toggleForm, add, closeForm, toggle, remove, editMode, modified, removeCompleted, dday } =
+  todoSlice.actions;
 export default todoSlice.reducer;

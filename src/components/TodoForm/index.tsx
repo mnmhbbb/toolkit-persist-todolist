@@ -2,7 +2,7 @@ import { useCallback, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { add, modified, Todo, toggleForm } from '../../slices/todoSlice';
+import { add, dday, modified, Todo, toggleForm } from '../../slices/todoSlice';
 import { Container, FormBackground } from './style';
 
 function getToday() {
@@ -45,6 +45,7 @@ const TodoForm = () => {
         deadline,
       };
       dispatch(modified(obj as Todo));
+      dispatch(dday());
     } else {
       const obj = {
         title,
@@ -54,6 +55,7 @@ const TodoForm = () => {
         deadline,
       };
       dispatch(add(obj as Todo));
+      dispatch(dday());
     }
   }, [dispatch, title, description, deadline, isEdit, editValue]);
 

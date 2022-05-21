@@ -1,7 +1,7 @@
 import Checkbox from '../Checkbox';
 import { useDispatch } from 'react-redux';
-import { editMode, remove, Todo } from '../../slices/todoSlice';
-import { useCallback } from 'react';
+import { dday, editMode, remove, Todo } from '../../slices/todoSlice';
+import { useCallback, useEffect } from 'react';
 
 interface TodosProp {
   todos: Todo[];
@@ -9,6 +9,10 @@ interface TodosProp {
 
 const TodoList = ({ todos }: TodosProp) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(dday());
+  }, [dispatch]);
 
   console.log('list', todos);
 
@@ -37,11 +41,16 @@ const TodoList = ({ todos }: TodosProp) => {
         {todos.map((todo: Todo) => (
           <li key={todo.id}>
             <Checkbox id={todo.id} isCompleted={todo.completed} />
-            <div>제목: {todo.title}</div>
+            <div>
+              제목: {todo.dday < 4 ? <strong>[긴급]</strong> : null}
+              {todo.title}
+            </div>
+            <div>D - {todo.dday === 0 ? 'Day' : todo.dday}</div>
             <div>설명: {todo.description}</div>
             <div>생성일: {todo.createdAt}</div>
             <div>{todo.modifiedAt && '(수정일: ' + todo.modifiedAt + ')'}</div>
             <div>마감일: {todo.deadline}</div>
+
             <button data-id={todo.id} onClick={onModified}>
               수정
             </button>
