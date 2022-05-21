@@ -5,10 +5,13 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { add, dday, modified, Todo, toggleForm } from '../../slices/todoSlice';
 import { Container, FormBackground } from './style';
 
-function getToday() {
-  // return YYYY-MM-DD
-  const date = new Date().toISOString().slice(0, 10);
-  return date;
+export function getToday() {
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = ('0' + (1 + date.getMonth())).slice(-2);
+  var day = ('0' + date.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
 }
 
 const TodoForm = () => {
