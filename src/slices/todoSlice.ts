@@ -76,6 +76,7 @@ export const todoSlice = createSlice({
       state.items.push(action.payload);
       state.isOpen = false;
       state.isEdit = false;
+      state.editValue = [];
     },
     removeCompleted(state) {
       state.items = state.items.filter((todo) => todo.completed === false);
