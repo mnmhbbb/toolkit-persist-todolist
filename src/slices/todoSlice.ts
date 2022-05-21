@@ -6,6 +6,7 @@ export interface Todo {
   title: string;
   description: string;
   completed: boolean;
+  completedAt: string;
   createdAt: string;
   modifiedAt: string;
   deadline: string;
@@ -19,6 +20,7 @@ const initialState = {
       title: '',
       description: '',
       completed: false,
+      completedAt: '',
       createdAt: '',
       modifiedAt: '',
       deadline: '',
@@ -57,9 +59,12 @@ export const todoSlice = createSlice({
       state.isOpen = false;
       state.isEdit = false;
     },
-    toggle(state, action: PayloadAction<{ id: string }>) {
+    toggle(state, action: PayloadAction<{ id: string; completedAt: string }>) {
       state.items.forEach((todo) => {
-        todo.completed = todo.id === action.payload.id ? !todo.completed : todo.completed;
+        if (todo.id === action.payload.id) {
+          todo.completed = !todo.completed;
+          todo.completedAt = action.payload.completedAt;
+        }
       });
     },
     remove(state, action: PayloadAction<{ id: string }>) {
