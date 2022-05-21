@@ -5,6 +5,7 @@ export const LayoutStyle = styled.div`
   margin: 0 auto;
   height: 100vh;
   background-color: #fff;
+  overflow-y: scroll;
 `;
 
 export const Container = styled.div`
