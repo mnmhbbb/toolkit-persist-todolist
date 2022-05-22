@@ -52,8 +52,8 @@ const TagGenerator = () => {
       // 태그 생성 후 초기화
       setOpenColor(false);
       setOpenBgColor(false);
-      setColor('');
-      setBgColor('');
+      setColor('#fff');
+      setBgColor('#78a8da');
       setTagName('');
     },
     [tagName, color, bgColor, dispatch, tagList]
