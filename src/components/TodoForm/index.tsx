@@ -1,34 +1,31 @@
-import { useCallback, useRef, useEffect } from 'react';
+import { useCallback, useRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { add, dday, modified, Todo, toggleForm } from '../../slices/todoSlice';
+import { add, dday, modified, Tags, Todo, toggleForm } from '../../slices/todoSlice';
+import Tag from '../Tag';
 import { Container, FormBackground } from './style';
-
-export function getToday() {
-  var date = new Date();
-  var year = date.getFullYear();
-  var month = ('0' + (1 + date.getMonth())).slice(-2);
-  var day = ('0' + date.getDate()).slice(-2);
-
-  return `${year}-${month}-${day}`;
-}
 
 const TodoForm = () => {
   const { isOpen, isEdit, editValue } = useTypedSelector((state) => state.todoSlice);
   let titleValue = '';
   let descValue = '';
   let deadlineValue = '';
+  let tagsValue: Tags[] = [];
 
   if (isEdit) {
     titleValue = editValue[0].title;
     descValue = editValue[0].description;
     deadlineValue = editValue[0].deadline;
+    editValue[0].tags.map((item) => {
+      return tagsValue.push(item);
+    });
   }
 
   const [title, onChangeTitle] = useInput(titleValue);
   const [description, onChangeDescription] = useInput(descValue);
   const [deadline, onChangeDeadline] = useInput(deadlineValue);
+  const [tags, setTags] = useState<Array<Tags>>([]);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
@@ -46,6 +43,7 @@ const TodoForm = () => {
         createdAt: editValue[0].createdAt,
         modifiedAt: getToday(),
         deadline,
+        tags,
       };
       dispatch(modified(obj as Todo));
       dispatch(dday());
@@ -56,18 +54,23 @@ const TodoForm = () => {
         completed: false,
         createdAt: getToday(),
         deadline,
+        tags,
       };
       dispatch(add(obj as Todo));
       dispatch(dday());
     }
-  }, [dispatch, title, description, deadline, isEdit, editValue]);
+  }, [dispatch, title, description, deadline, isEdit, editValue, tags]);
 
   const onCloseForm = useCallback(() => {
     dispatch(toggleForm({ isOpen }));
   }, [isOpen, dispatch]);
 
+  const tagHandler = useCallback((data: Tags[]) => {
+    setTags(data);
+  }, []);
+
   return (
-    <div>
+    <>
       <FormBackground onClick={onCloseForm} />
       <Container>
         <div className='header'>
@@ -87,11 +90,24 @@ const TodoForm = () => {
             <label htmlFor='deadline'>마감일자</label>
             <input type='date' id='deadline' value={deadline} onChange={onChangeDeadline} min={getToday()} required />
           </div>
+          <div>
+            <h1>태그 관련</h1>
+            <Tag tagHandler={tagHandler} editTags={tagsValue} />
+          </div>
           <button type='submit'>{isEdit ? '수정' : '등록'}</button>
         </form>
       </Container>
-    </div>
+    </>
   );
 };
 
 export default TodoForm;
+
+export function getToday() {
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = ('0' + (1 + date.getMonth())).slice(-2);
+  var day = ('0' + date.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
+}

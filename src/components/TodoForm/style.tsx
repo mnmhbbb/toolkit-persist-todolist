@@ -20,8 +20,9 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.3rem;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
 
   .header {
     display: flex;

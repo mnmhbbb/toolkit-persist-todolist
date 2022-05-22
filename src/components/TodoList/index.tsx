@@ -44,6 +44,18 @@ const TodoList = ({ todos }: TodosProp) => {
             <div>생성일: {todo.createdAt}</div>
             <div>{todo.modifiedAt && '(수정일: ' + todo.modifiedAt + ')'}</div>
             <div>마감일: {todo.deadline}</div>
+            <div>
+              태그:{' '}
+              <ul>
+                {todo.tags.map((tag) => {
+                  return (
+                    <li key={tag.id} style={{ color: tag.color, backgroundColor: tag.bgColor }}>
+                      {tag.name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
             <button data-id={todo.id} onClick={onModified}>
               수정

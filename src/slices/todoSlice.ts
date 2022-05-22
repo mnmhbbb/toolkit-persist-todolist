@@ -11,12 +11,21 @@ export interface Todo {
   modifiedAt: string;
   deadline: string;
   dday: number;
+  tags: Tags[];
+}
+
+export interface Tags {
+  id: string;
+  name: string;
+  color: string;
+  bgColor: string;
+  createdAt: string;
 }
 
 const initialState = {
   items: [
     {
-      id: '',
+      id: 'init',
       title: '',
       description: '',
       completed: false,
@@ -25,6 +34,38 @@ const initialState = {
       modifiedAt: '',
       deadline: '',
       dday: 0,
+      tags: [
+        {
+          id: '1',
+          name: 'tag1',
+          color: '#fff',
+          bgColor: '#87abe4',
+          createdAt: '2022-05-22',
+        },
+        {
+          id: '2',
+          name: 'tag2',
+          color: '#fff',
+          bgColor: '#87abe4',
+          createdAt: '2022-05-22',
+        },
+      ],
+    },
+  ],
+  tagList: [
+    {
+      id: '1',
+      name: 'tag1',
+      color: '#fff',
+      bgColor: '#87abe4',
+      createdAt: '2022-05-22',
+    },
+    {
+      id: '2',
+      name: 'tag2',
+      color: '#fff',
+      bgColor: '#87abe4',
+      createdAt: '2022-05-22',
     },
   ],
   isOpen: false,
@@ -38,6 +79,15 @@ const initialState = {
       createdAt: '',
       modifiedAt: '',
       deadline: '',
+      tags: [
+        {
+          id: '',
+          name: '',
+          color: '',
+          bgColor: '',
+          createdAt: '',
+        },
+      ],
     },
   ],
 };
@@ -50,14 +100,17 @@ export const todoSlice = createSlice({
       state.isOpen = !action.payload.isOpen;
       state.isEdit = false;
     },
+    closeForm(state) {
+      state.isOpen = false;
+      state.isEdit = false;
+    },
     add(state, action: PayloadAction<Todo>) {
       action.payload.id = uuidv4();
       state.items.push(action.payload);
       state.isOpen = false;
     },
-    closeForm(state) {
-      state.isOpen = false;
-      state.isEdit = false;
+    remove(state, action: PayloadAction<{ id: string }>) {
+      state.items = state.items.filter((todo) => todo.id !== action.payload.id);
     },
     toggle(state, action: PayloadAction<{ id: string; completedAt: string }>) {
       state.items.forEach((todo) => {
@@ -66,9 +119,6 @@ export const todoSlice = createSlice({
           todo.completedAt = action.payload.completedAt;
         }
       });
-    },
-    remove(state, action: PayloadAction<{ id: string }>) {
-      state.items = state.items.filter((todo) => todo.id !== action.payload.id);
     },
     editMode(state, action: PayloadAction<{ id: string }>) {
       state.isEdit = true;
@@ -94,9 +144,27 @@ export const todoSlice = createSlice({
         todo.dday = Math.floor(diff / (1000 * 60 * 60 * 24));
       });
     },
+    addTagList(state, action: PayloadAction<Tags>) {
+      action.payload.id = uuidv4();
+      state.tagList.push(action.payload);
+    },
+    removeTagList(state, action: PayloadAction<{ name: string }>) {
+      state.tagList = state.tagList.filter((tag) => tag.name !== action.payload.name);
+    },
   },
 });
 
-export const { toggleForm, add, closeForm, toggle, remove, editMode, modified, removeCompleted, dday } =
-  todoSlice.actions;
+export const {
+  addTagList,
+  removeTagList,
+  toggleForm,
+  closeForm,
+  toggle,
+  add,
+  remove,
+  editMode,
+  modified,
+  removeCompleted,
+  dday,
+} = todoSlice.actions;
 export default todoSlice.reducer;
