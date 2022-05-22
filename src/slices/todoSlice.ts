@@ -123,7 +123,7 @@ export const todoSlice = createSlice({
     editMode(state, action: PayloadAction<{ id: string }>) {
       state.isEdit = true;
       state.isOpen = true;
-      state.editValue = state.items.filter((todo) => (todo.id === action.payload.id ? todo : ''));
+      state.editValue = state.items.filter((todo) => todo.id === action.payload.id);
     },
     modified(state, action: PayloadAction<Todo>) {
       state.items = state.items.filter((todo) => todo.id !== action.payload.id);
