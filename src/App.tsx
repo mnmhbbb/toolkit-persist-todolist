@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import Completed from './pages/Completed';
 import Created from './pages/Created';
 import Deadline from './pages/Deadline';
+import Tag from './pages/Tag';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/completed' element={<Completed />} />
           <Route path='/created' element={<Created />} />
           <Route path='/deadline' element={<Deadline />} />
+          <Route path='/tag' element={<Tag />} />
         </Routes>
       </LayoutStyle>
     </Container>

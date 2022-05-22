@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import TagGenerator from '../TagGenerator';
 
 interface Props {
-  tagHandler: (data: Tags[]) => void;
+  tagHandler: (tags: Tags[], tagNameArr: string[]) => void;
   editTags: Tags[];
 }
 
@@ -14,11 +14,12 @@ interface Props {
 const Tag = ({ tagHandler, editTags }: Props) => {
   const tagList = useTypedSelector((state) => state.todoSlice.tagList);
   const [selectedtag, setSelectedTag] = useState<Array<Tags>>(editTags);
+  const [selectedTagName, setSeletecTagName] = useState<Array<string>>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tagHandler(selectedtag);
-  }, [selectedtag, tagHandler]);
+    tagHandler(selectedtag, selectedTagName);
+  }, [selectedtag, selectedTagName, tagHandler]);
 
   const addCurrentTag = useCallback(
     (e: any) => {
@@ -33,6 +34,9 @@ const Tag = ({ tagHandler, editTags }: Props) => {
       setSelectedTag((prev) => {
         return [...prev, thisTag];
       });
+      setSeletecTagName((prev) => {
+        return [...prev, name];
+      });
     },
     [tagList, selectedtag]
   );
@@ -41,8 +45,9 @@ const Tag = ({ tagHandler, editTags }: Props) => {
     (e: any) => {
       const name = e.target.dataset.name;
       setSelectedTag(selectedtag.filter((item) => item.name !== name));
+      setSeletecTagName(selectedTagName.filter((item) => item !== name));
     },
-    [selectedtag]
+    [selectedtag, selectedTagName]
   );
 
   const onRemoveTagList = useCallback(

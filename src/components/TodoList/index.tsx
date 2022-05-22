@@ -2,6 +2,7 @@ import Checkbox from '../Checkbox';
 import { useDispatch } from 'react-redux';
 import { editMode, remove, Todo } from '../../slices/todoSlice';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router';
 
 interface TodosProp {
   todos: Todo[];
@@ -9,6 +10,7 @@ interface TodosProp {
 
 const TodoList = ({ todos }: TodosProp) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const removeItem = useCallback(
     (e: any) => {
@@ -26,6 +28,14 @@ const TodoList = ({ todos }: TodosProp) => {
       dispatch(editMode({ id }));
     },
     [dispatch]
+  );
+
+  const searchTag = useCallback(
+    (e: any) => {
+      const tagName = e.target.textContent;
+      navigate(`/tag?name=${tagName}`);
+    },
+    [navigate]
   );
 
   return (
@@ -49,7 +59,7 @@ const TodoList = ({ todos }: TodosProp) => {
               <ul>
                 {todo.tags.map((tag) => {
                   return (
-                    <li key={tag.id} style={{ color: tag.color, backgroundColor: tag.bgColor }}>
+                    <li onClick={searchTag} key={tag.id} style={{ color: tag.color, backgroundColor: tag.bgColor }}>
                       {tag.name}
                     </li>
                   );

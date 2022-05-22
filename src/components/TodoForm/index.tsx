@@ -26,6 +26,7 @@ const TodoForm = () => {
   const [description, onChangeDescription] = useInput(descValue);
   const [deadline, onChangeDeadline] = useInput(deadlineValue);
   const [tags, setTags] = useState<Array<Tags>>([]);
+  const [tagNameArr, setTagNameArr] = useState<Array<string>>([]);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
@@ -44,6 +45,7 @@ const TodoForm = () => {
         modifiedAt: getToday(),
         deadline,
         tags,
+        tagNameArr,
       };
       dispatch(modified(obj as Todo));
       dispatch(dday());
@@ -55,18 +57,20 @@ const TodoForm = () => {
         createdAt: getToday(),
         deadline,
         tags,
+        tagNameArr,
       };
       dispatch(add(obj as Todo));
       dispatch(dday());
     }
-  }, [dispatch, title, description, deadline, isEdit, editValue, tags]);
+  }, [dispatch, title, description, deadline, isEdit, editValue, tags, tagNameArr]);
 
   const onCloseForm = useCallback(() => {
     dispatch(toggleForm({ isOpen }));
   }, [isOpen, dispatch]);
 
-  const tagHandler = useCallback((data: Tags[]) => {
-    setTags(data);
+  const tagHandler = useCallback((tags: Tags[], tagNameArr: string[]) => {
+    setTags(tags);
+    setTagNameArr(tagNameArr);
   }, []);
 
   return (

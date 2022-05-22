@@ -12,6 +12,7 @@ export interface Todo {
   deadline: string;
   dday: number;
   tags: Tags[];
+  tagNameArr: string[];
 }
 
 export interface Tags {
@@ -34,6 +35,7 @@ const initialState = {
       modifiedAt: '',
       deadline: '',
       dday: 0,
+      tagNameArr: ['tag1', 'tag2'],
       tags: [
         {
           id: '1',
