@@ -1,7 +1,7 @@
 import Checkbox from '../Checkbox';
 import { useDispatch } from 'react-redux';
-import { dday, editMode, remove, Todo } from '../../slices/todoSlice';
-import { useCallback, useEffect } from 'react';
+import { editMode, remove, Todo } from '../../slices/todoSlice';
+import { useCallback } from 'react';
 
 interface TodosProp {
   todos: Todo[];
@@ -9,12 +9,6 @@ interface TodosProp {
 
 const TodoList = ({ todos }: TodosProp) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(dday());
-  }, [dispatch]);
-
-  console.log('list', todos);
 
   const removeItem = useCallback(
     (e: any) => {
@@ -38,7 +32,7 @@ const TodoList = ({ todos }: TodosProp) => {
     <>
       <h3>List</h3>
       <ul>
-        {todos.map((todo: Todo) => (
+        {todos?.map((todo: Todo) => (
           <li key={todo.id}>
             <Checkbox id={todo.id} isCompleted={todo.completed} />
             <div>
