@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { getToday } from '../TodoForm/index';
 import { useDispatch } from 'react-redux';
 import { addTagList, Tags } from '../../slices/todoSlice';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 interface TagPreviewProp {
   color: string;
@@ -19,6 +20,7 @@ const TagGenerator = () => {
   const [tagWidth, setTagWidth] = useState('100px');
   const [openColor, setOpenColor] = useState(false);
   const [openBgColor, setOpenBgColor] = useState(false);
+  const tagList = useTypedSelector((state) => state.todoSlice.tagList);
 
   const onChangeTagName = useCallback((e: any) => {
     setTagName(e.target.value);
@@ -30,7 +32,16 @@ const TagGenerator = () => {
 
   const generateTag = useCallback(
     (e: any) => {
-      if (tagName.length === 0) return;
+      if (!tagName) return;
+      if (
+        tagList.findIndex((tag) => {
+          return tag.name === tagName;
+        }) >= 0
+      ) {
+        alert('이미 존재하는 태그명입니다.');
+        setTagName('');
+        return;
+      }
       const generatedTag = {
         name: tagName,
         color,
@@ -45,7 +56,7 @@ const TagGenerator = () => {
       setBgColor('');
       setTagName('');
     },
-    [tagName, color, bgColor, dispatch]
+    [tagName, color, bgColor, dispatch, tagList]
   );
 
   const toggleColorPicker = useCallback(
