@@ -144,6 +144,7 @@ export const todoSlice = createSlice({
         const deadline: any = new Date(todo.deadline);
         const diff = deadline - today;
         todo.dday = Math.floor(diff / (1000 * 60 * 60 * 24));
+        if (todo.dday <= 0) todo.dday = 0;
       });
     },
     addTagList(state, action: PayloadAction<Tags>) {
