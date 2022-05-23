@@ -3,6 +3,8 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { removeTagList, Tags } from '../../slices/todoSlice';
 import { useDispatch } from 'react-redux';
 import TagGenerator from '../TagGenerator';
+import { TagStyle } from '../TodoList/style';
+import { AllTagList, CurrentTagUl, TagAllUl, ExplainStyle } from './styles';
 
 interface Props {
   tagHandler: (tags: Tags[], tagNameArr: string[]) => void;
@@ -65,39 +67,39 @@ const Tag = ({ tagHandler, editTags }: Props) => {
 
   return (
     <>
-      <h1>전체 태그 목록</h1>
-      <ul>
-        {tagList.map((tag) => {
-          return (
-            <li key={tag.id}>
-              <span data-name={tag.name} onClick={addCurrentTag}>
-                {tag.name}
-              </span>
-              <button type='button' onClick={onRemoveTagList}>
-                태그 삭제
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      {/* 
-      //
-      //
-      */}
-      <h1>현재 적용된 태그:</h1>
-      <ul>
+      <h3>현재 적용된 태그:</h3>
+      <CurrentTagUl>
         {selectedtag.map((item: Tags) => {
           return (
-            <li key={item.id} style={{ color: item.color, backgroundColor: item.bgColor }}>
+            <TagStyle key={item.id} color={item.color} bgColor={item.bgColor}>
               <span>{item.name}</span>
               <button type='button' onClick={removeCurrentTag} data-name={item.name}>
                 X
               </button>
-            </li>
+            </TagStyle>
           );
         })}
-      </ul>
-      <h1 onClick={onToggle}>태그 생성</h1>
+      </CurrentTagUl>
+      <h3>전체 태그 목록</h3>
+      <ExplainStyle>다음 목록 중에서 태그를 선택할 수 있습니다.</ExplainStyle>
+      <TagAllUl>
+        {tagList.map((tag) => {
+          return (
+            <AllTagList key={tag.id} color={tag.color} bgColor={tag.bgColor}>
+              <span data-name={tag.name} onClick={addCurrentTag}>
+                {tag.name}
+              </span>
+              <button type='button' onClick={onRemoveTagList}>
+                삭제
+              </button>
+            </AllTagList>
+          );
+        })}
+      </TagAllUl>
+
+      <button type='button' onClick={onToggle}>
+        태그 추가하기
+      </button>
       {openGenerator && <TagGenerator />}
     </>
   );

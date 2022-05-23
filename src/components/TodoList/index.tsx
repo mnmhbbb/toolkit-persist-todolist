@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { editMode, remove, Todo } from '../../slices/todoSlice';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
+import { ItemStyle, TodoListStyle, ItemButtons, TagStyle } from './style';
 
 interface TodosProps {
   todos: Todo[];
@@ -39,44 +40,51 @@ const TodoList = ({ todos }: TodosProps) => {
   );
 
   return (
-    <>
-      <h3>List</h3>
+    <TodoListStyle>
       <ul>
         {todos?.map((todo: Todo) => (
-          <li key={todo.id}>
-            <Checkbox id={todo.id} isCompleted={todo.completed} />
-            <div>
-              제목: {todo.dday < 4 ? <strong>[긴급]</strong> : null}
-              {todo.title}
-            </div>
-            <div>D - {todo.dday === 0 ? 'Day' : todo.dday}</div>
-            <div>설명: {todo.description}</div>
-            <div>생성일: {todo.createdAt}</div>
-            <div>{todo.modifiedAt && '(수정일: ' + todo.modifiedAt + ')'}</div>
-            <div>마감일: {todo.deadline}</div>
-            <div>
-              태그:{' '}
-              <ul>
-                {todo.tags.map((tag) => {
-                  return (
-                    <li onClick={searchTag} key={tag.id} style={{ color: tag.color, backgroundColor: tag.bgColor }}>
-                      {tag.name}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+          <ItemStyle key={todo.id}>
+            <div className='group'>
+              <Checkbox id={todo.id} isCompleted={todo.completed} />
+              <div className='group__right'>
+                <div className='titleAndDeadline'>
+                  <span>
+                    {todo.dday < 4 ? <strong>[긴급] </strong> : null}
+                    {todo.title}
+                  </span>
+                  <strong>{todo.deadline}까지</strong>
+                </div>
+                <div>{todo.description}</div>
+                <div className='createdAndModifiedAt'>
+                  <span>생성일: {todo.createdAt}</span>
+                  <span>{todo.modifiedAt && '(수정일: ' + todo.modifiedAt + ')'}</span>
+                </div>
+                <div>
+                  <ul>
+                    {todo.tags.map((tag) => {
+                      return (
+                        <TagStyle onClick={searchTag} key={tag.id} color={tag.color} bgColor={tag.bgColor}>
+                          {tag.name}
+                        </TagStyle>
+                      );
+                    })}
+                  </ul>
+                </div>
 
-            <button data-id={todo.id} onClick={onModified}>
-              수정
-            </button>
-            <button data-id={todo.id} onClick={removeItem}>
-              삭제
-            </button>
-          </li>
+                <ItemButtons>
+                  <button data-id={todo.id} onClick={onModified}>
+                    수정
+                  </button>
+                  <button data-id={todo.id} onClick={removeItem}>
+                    삭제
+                  </button>
+                </ItemButtons>
+              </div>
+            </div>
+          </ItemStyle>
         ))}
       </ul>
-    </>
+    </TodoListStyle>
   );
 };
 

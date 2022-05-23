@@ -1,34 +1,23 @@
 import { useCallback, useState } from 'react';
 import { SketchPicker } from 'react-color';
-import styled from 'styled-components';
 import { getToday } from '../TodoForm/index';
 import { useDispatch } from 'react-redux';
 import { addTagList, Tags } from '../../slices/todoSlice';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-
-interface TagPreviewProps {
-  color: string;
-  bgColor: string;
-  width: string;
-}
+import { Container, TagPreview } from './style';
 
 const TagGenerator = () => {
   const dispatch = useDispatch();
   const [tagName, setTagName] = useState('');
   const [color, setColor] = useState('#fff');
   const [bgColor, setBgColor] = useState('#78a8da');
-  const [tagWidth, setTagWidth] = useState('100px');
   const [openColor, setOpenColor] = useState(false);
   const [openBgColor, setOpenBgColor] = useState(false);
   const tagList = useTypedSelector((state) => state.todoSlice.tagList);
 
   const onChangeTagName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTagName(e.target.value);
+    setTagName(e.target.value.trim());
   }, []);
-
-  const onKeyUpTag = useCallback(() => {
-    setTagWidth(`${tagName.length * 17}px`);
-  }, [tagName]);
 
   const generateTag = useCallback(() => {
     if (!tagName) return;
@@ -73,40 +62,32 @@ const TagGenerator = () => {
   }, []);
 
   return (
-    <>
-      <input
-        type='text'
-        value={tagName}
-        onChange={onChangeTagName}
-        onKeyUp={onKeyUpTag}
-        placeholder='태그 이름을 입력하세요'
-      />
+    <Container>
+      <input type='text' value={tagName} onChange={onChangeTagName} placeholder='태그 이름을 입력하세요' />
 
-      <h1>태그 미리보기</h1>
-      <TagPreview color={color} bgColor={bgColor} width={tagWidth}>
+      <h3>태그 미리보기</h3>
+      <TagPreview color={color} bgColor={bgColor}>
         {tagName}
       </TagPreview>
 
-      <strong onClick={toggleColorPicker}>태그 글자색</strong>
-      {openColor && <SketchPicker color={color} onChange={(color) => colorPicker(color.hex)} />}
-      <strong onClick={toggleBgColorPicker}>태그 배경색</strong>
-      {openBgColor && <SketchPicker color={bgColor} onChange={(color) => bgColorPicker(color.hex)} />}
+      <div className='group'>
+        <button type='button' onClick={toggleColorPicker}>
+          태그 글자색 선택
+        </button>
+        {openColor && <SketchPicker color={color} onChange={(color) => colorPicker(color.hex)} />}
+        <button type='button' onClick={toggleBgColorPicker}>
+          태그 배경색 선택
+        </button>
+        {openBgColor && <SketchPicker color={bgColor} onChange={(color) => bgColorPicker(color.hex)} />}
+      </div>
 
-      <button type='button' onClick={generateTag}>
-        태그 생성하기
-      </button>
-    </>
+      <div className='generateButton'>
+        <button type='button' onClick={generateTag}>
+          태그 생성하기
+        </button>
+      </div>
+    </Container>
   );
 };
 
 export default TagGenerator;
-
-export const TagPreview = styled.div<TagPreviewProps>`
-  width: ${(props) => props.width || '100px'};
-  height: 14px;
-  text-align: center;
-  padding: 0.5rem;
-  border: 1px solid #e5e5e5;
-  color: ${(props) => props.color || '#fff'};
-  background-color: ${(props) => props.bgColor || '#78a8da'};
-`;

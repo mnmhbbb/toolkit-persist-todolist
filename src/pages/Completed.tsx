@@ -17,8 +17,9 @@ const Completed = () => {
 
   return (
     <>
-      <h1>완료된 목록</h1>
-      <button onClick={onRemove}>완료 목록 삭제</button>
+      <button onClick={onRemove} style={{ marginBottom: '1rem' }}>
+        완료 목록 삭제
+      </button>
       <TodoList todos={todos} />
     </>
   );

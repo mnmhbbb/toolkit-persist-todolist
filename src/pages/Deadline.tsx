@@ -9,7 +9,6 @@ const Deadline = () => {
 
   return (
     <>
-      <h1>마감순</h1>
       <TodoList todos={sort} />
     </>
   );

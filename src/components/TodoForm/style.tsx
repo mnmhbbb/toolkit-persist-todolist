@@ -15,8 +15,10 @@ export const Container = styled.div`
   position: fixed;
   z-index: 2;
   background-color: #fff;
-  border: 1px solid #e5e5e5;
+  border: 1px solid ${(props) => props.theme.colors.border};
   width: 400px;
+  height: 100%;
+  overflow-y: scroll;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 0.3rem;
@@ -27,5 +29,25 @@ export const Container = styled.div`
   .header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 2rem;
+
+    button {
+      padding: 0.3rem 1rem;
+    }
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 1rem;
+  }
+
+  button[type='submit'] {
+    width: 100%;
+    padding: 1rem;
+    color: #fff;
+    background-color: ${(props) => props.theme.colors.main};
+    font-size: ${(props) => props.theme.fontSize.title};
   }
 `;

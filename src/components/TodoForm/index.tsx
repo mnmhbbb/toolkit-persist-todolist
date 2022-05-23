@@ -99,24 +99,23 @@ const TodoForm = () => {
       <FormBackground onClick={onCloseForm} />
       <Container>
         <div className='header'>
-          <h1>{isEdit ? '수정' : '할 일  추가'}</h1>
-          <button onClick={onCloseForm}>X</button>
+          <h2>{isEdit ? '수정하기' : '할 일 추가'}</h2>
+          <button onClick={onCloseForm}>닫기</button>
         </div>
         <form onSubmit={onSubmit}>
-          <div>
+          <div className='group'>
             <label htmlFor='title'>제목</label>
             <input type='text' id='title' value={title} onChange={onChangeTitle} required ref={titleInputRef} />
           </div>
-          <div>
+          <div className='group'>
             <label htmlFor='description'>상세설명</label>
             <input type='text' id='description' value={description} onChange={onChangeDescription} required />
           </div>
-          <div>
+          <div className='group'>
             <label htmlFor='deadline'>마감일자</label>
             <input type='date' id='deadline' value={deadline} onChange={onChangeDeadline} min={getToday()} required />
           </div>
-          <div>
-            <h1>태그 관련</h1>
+          <div className='group'>
             <Tag tagHandler={tagHandler} editTags={tagsValue} />
           </div>
           <button type='submit'>{isEdit ? '수정' : '등록'}</button>

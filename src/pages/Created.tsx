@@ -6,7 +6,6 @@ const Created = () => {
 
   return (
     <>
-      <h1>생성순</h1>
       <TodoList todos={todos.items} />
     </>
   );

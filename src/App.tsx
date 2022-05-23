@@ -1,8 +1,7 @@
 import Header from './components/Header';
 import { Container, LayoutStyle } from './styles/Layout';
 import Nav from './components/Nav/index';
-import { Routes } from 'react-router';
-import { Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import Completed from './pages/Completed';
 import Created from './pages/Created';
