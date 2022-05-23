@@ -22,7 +22,7 @@ const TagGenerator = () => {
   const [openBgColor, setOpenBgColor] = useState(false);
   const tagList = useTypedSelector((state) => state.todoSlice.tagList);
 
-  const onChangeTagName = useCallback((e: any) => {
+  const onChangeTagName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTagName(e.target.value);
   }, []);
 
@@ -30,48 +30,39 @@ const TagGenerator = () => {
     setTagWidth(`${tagName.length * 17}px`);
   }, [tagName]);
 
-  const generateTag = useCallback(
-    (e: any) => {
-      if (!tagName) return;
-      if (
-        tagList.findIndex((tag) => {
-          return tag.name === tagName;
-        }) >= 0
-      ) {
-        alert('이미 존재하는 태그명입니다.');
-        setTagName('');
-        return;
-      }
-      const generatedTag = {
-        name: tagName,
-        color,
-        bgColor,
-        createdAt: getToday(),
-      };
-      dispatch(addTagList(generatedTag as Tags));
-      // 태그 생성 후 초기화
-      setOpenColor(false);
-      setOpenBgColor(false);
-      setColor('#fff');
-      setBgColor('#78a8da');
+  const generateTag = useCallback(() => {
+    if (!tagName) return;
+    if (
+      tagList.findIndex((tag) => {
+        return tag.name === tagName;
+      }) >= 0
+    ) {
+      alert('이미 존재하는 태그명입니다.');
       setTagName('');
-    },
-    [tagName, color, bgColor, dispatch, tagList]
-  );
+      return;
+    }
+    const generatedTag = {
+      name: tagName,
+      color,
+      bgColor,
+      createdAt: getToday(),
+    };
+    dispatch(addTagList(generatedTag as Tags));
+    // 태그 생성 후 초기화
+    setOpenColor(false);
+    setOpenBgColor(false);
+    setColor('#fff');
+    setBgColor('#78a8da');
+    setTagName('');
+  }, [tagName, color, bgColor, dispatch, tagList]);
 
-  const toggleColorPicker = useCallback(
-    (e: any) => {
-      setOpenColor(!openColor);
-    },
-    [openColor]
-  );
+  const toggleColorPicker = useCallback(() => {
+    setOpenColor(!openColor);
+  }, [openColor]);
 
-  const toggleBgColorPicker = useCallback(
-    (e: any) => {
-      setOpenBgColor(!openBgColor);
-    },
-    [openBgColor]
-  );
+  const toggleBgColorPicker = useCallback(() => {
+    setOpenBgColor(!openBgColor);
+  }, [openBgColor]);
 
   const colorPicker = useCallback((color: string) => {
     setColor(color);

@@ -13,26 +13,26 @@ const TodoList = ({ todos }: TodosProps) => {
   const navigate = useNavigate();
 
   const removeItem = useCallback(
-    (e: any) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       if (window.confirm('정말 삭제하시겠습니까?')) {
-        const id = e.target.dataset.id;
-        dispatch(remove({ id }));
+        const id = (e.target as HTMLButtonElement).dataset.id;
+        dispatch(remove({ id } as Todo));
       }
     },
     [dispatch]
   );
 
   const onModified = useCallback(
-    (e: any) => {
-      const id = e.target.dataset.id;
-      dispatch(editMode({ id }));
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const id = (e.target as HTMLButtonElement).dataset.id;
+      dispatch(editMode({ id } as Todo));
     },
     [dispatch]
   );
 
   const searchTag = useCallback(
-    (e: any) => {
-      const tagName = e.target.textContent;
+    (e: React.MouseEvent<HTMLElement>) => {
+      const tagName = (e.target as HTMLElement).textContent;
       navigate(`/tag?name=${tagName}`);
     },
     [navigate]

@@ -9,8 +9,6 @@ interface Props {
   editTags: Tags[];
 }
 
-// 상위 컴포넌트에 보내야 할 값
-// tag: [{id: '123', name: 'tag1', ... }, {}]
 const Tag = ({ tagHandler, editTags }: Props) => {
   const tagList = useTypedSelector((state) => state.todoSlice.tagList);
   const [selectedtag, setSelectedTag] = useState<Array<Tags>>(editTags);
@@ -22,8 +20,8 @@ const Tag = ({ tagHandler, editTags }: Props) => {
   }, [selectedtag, selectedTagName, tagHandler]);
 
   const addCurrentTag = useCallback(
-    (e: any) => {
-      const name = e.target.dataset.name;
+    (e: React.MouseEvent<HTMLElement>) => {
+      const name = (e.target as HTMLElement).dataset.name;
       if (selectedtag.filter((item) => item.name === name).length > 0) {
         alert('이미 추가된 태그입니다.');
         return;
@@ -34,7 +32,7 @@ const Tag = ({ tagHandler, editTags }: Props) => {
       setSelectedTag((prev) => {
         return [...prev, thisTag];
       });
-      setSeletecTagName((prev) => {
+      setSeletecTagName((prev: any) => {
         return [...prev, name];
       });
     },
@@ -42,8 +40,8 @@ const Tag = ({ tagHandler, editTags }: Props) => {
   );
 
   const removeCurrentTag = useCallback(
-    (e: any) => {
-      const name = e.target.dataset.name;
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      const name = (e.target as HTMLButtonElement).dataset.name;
       setSelectedTag(selectedtag.filter((item) => item.name !== name));
       setSeletecTagName(selectedTagName.filter((item) => item !== name));
     },
@@ -51,9 +49,9 @@ const Tag = ({ tagHandler, editTags }: Props) => {
   );
 
   const onRemoveTagList = useCallback(
-    (e: any) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       if (window.confirm('전체 태그 목록에서 해당 태그를 삭제하시겠습니까?')) {
-        const name = e.target.previousSibling.dataset.name;
+        const name = (e.target as any).previousSibling.dataset.name;
         dispatch(removeTagList({ name }));
       }
     },
