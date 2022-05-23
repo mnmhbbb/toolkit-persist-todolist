@@ -31,7 +31,16 @@ const TodoForm = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    titleInputRef.current?.focus();
+    (() => {
+      titleInputRef.current?.focus();
+      window.history.pushState(null, '', window.location.href);
+      window.addEventListener('popstate', preventGoBack);
+      window.addEventListener('beforeunload', preventRefresh);
+    })();
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+      window.removeEventListener('beforeunload', preventRefresh);
+    };
   }, []);
 
   const onSubmit = useCallback(() => {
@@ -65,13 +74,25 @@ const TodoForm = () => {
   }, [dispatch, title, description, deadline, isEdit, editValue, tags, tagNameArr]);
 
   const onCloseForm = useCallback(() => {
-    dispatch(toggleForm({ isOpen }));
+    if (window.confirm('작성을 중단하시겠습니까?')) {
+      dispatch(toggleForm({ isOpen }));
+    }
   }, [isOpen, dispatch]);
 
   const tagHandler = useCallback((tags: Tags[], tagNameArr: string[]) => {
     setTags(tags);
     setTagNameArr(tagNameArr);
   }, []);
+
+  const preventRefresh = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = '';
+  };
+
+  const preventGoBack = () => {
+    window.history.pushState(null, '', window.location.href);
+    console.log('prevent go back!');
+  };
 
   return (
     <>

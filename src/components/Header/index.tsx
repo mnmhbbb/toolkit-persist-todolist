@@ -7,7 +7,6 @@ import TodoForm from '../TodoForm';
 const Header = () => {
   const isOpen = useTypedSelector((state) => state.todoSlice.isOpen);
   const dispatch = useDispatch();
-  dispatch(closeForm);
 
   const onOpen = useCallback(() => {
     dispatch(toggleForm({ isOpen }));
