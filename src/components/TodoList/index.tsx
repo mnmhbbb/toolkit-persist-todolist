@@ -4,11 +4,11 @@ import { editMode, remove, Todo } from '../../slices/todoSlice';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 
-interface TodosProp {
+interface TodosProps {
   todos: Todo[];
 }
 
-const TodoList = ({ todos }: TodosProp) => {
+const TodoList = ({ todos }: TodosProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

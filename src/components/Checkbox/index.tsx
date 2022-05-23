@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { toggle } from '../../slices/todoSlice';
 import { getToday } from '../TodoForm/index';
 
-interface CompletedProp {
+interface CompletedProps {
   id: string;
   isCompleted: boolean;
 }
 
-const Checkbox = ({ id, isCompleted }: CompletedProp) => {
+const Checkbox = ({ id, isCompleted }: CompletedProps) => {
   const [checked, setChecked] = useState(isCompleted);
   const dispatch = useDispatch();
 

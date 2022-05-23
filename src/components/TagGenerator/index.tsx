@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addTagList, Tags } from '../../slices/todoSlice';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-interface TagPreviewProp {
+interface TagPreviewProps {
   color: string;
   bgColor: string;
   width: string;
@@ -113,7 +113,7 @@ const TagGenerator = () => {
 
 export default TagGenerator;
 
-export const TagPreview = styled.div<TagPreviewProp>`
+export const TagPreview = styled.div<TagPreviewProps>`
   width: ${(props) => props.width || '100px'};
   height: 14px;
   text-align: center;
