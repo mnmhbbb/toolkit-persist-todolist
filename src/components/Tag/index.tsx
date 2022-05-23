@@ -13,6 +13,7 @@ const Tag = ({ tagHandler, editTags }: Props) => {
   const tagList = useTypedSelector((state) => state.todoSlice.tagList);
   const [selectedtag, setSelectedTag] = useState<Array<Tags>>(editTags);
   const [selectedTagName, setSeletecTagName] = useState<Array<string>>([]);
+  const [openGenerator, setOpenGenerator] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,9 +59,13 @@ const Tag = ({ tagHandler, editTags }: Props) => {
     [dispatch]
   );
 
+  const onToggle = useCallback(() => {
+    setOpenGenerator(!openGenerator);
+  }, [openGenerator]);
+
   return (
     <>
-      <h1>전체 태그 목록----------------------</h1>
+      <h1>전체 태그 목록</h1>
       <ul>
         {tagList.map((tag) => {
           return (
@@ -92,7 +97,8 @@ const Tag = ({ tagHandler, editTags }: Props) => {
           );
         })}
       </ul>
-      <TagGenerator />
+      <h1 onClick={onToggle}>태그 생성</h1>
+      {openGenerator && <TagGenerator />}
     </>
   );
 };

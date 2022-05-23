@@ -74,30 +74,27 @@ const TagGenerator = () => {
 
   return (
     <>
-      <h1>태그 생성~~~~~~~~~~~~~~~~~</h1>
-      <div>
-        <input
-          type='text'
-          value={tagName}
-          onChange={onChangeTagName}
-          onKeyUp={onKeyUpTag}
-          placeholder='태그 이름을 입력하세요'
-        />
+      <input
+        type='text'
+        value={tagName}
+        onChange={onChangeTagName}
+        onKeyUp={onKeyUpTag}
+        placeholder='태그 이름을 입력하세요'
+      />
 
-        <h1>태그 미리보기---</h1>
-        <TagPreview color={color} bgColor={bgColor} width={tagWidth}>
-          {tagName}
-        </TagPreview>
+      <h1>태그 미리보기</h1>
+      <TagPreview color={color} bgColor={bgColor} width={tagWidth}>
+        {tagName}
+      </TagPreview>
 
-        <strong onClick={toggleColorPicker}>태그 글자색</strong>
-        {openColor && <SketchPicker color={color} onChange={(color) => colorPicker(color.hex)} />}
-        <strong onClick={toggleBgColorPicker}>태그 배경색</strong>
-        {openBgColor && <SketchPicker color={bgColor} onChange={(color) => bgColorPicker(color.hex)} />}
+      <strong onClick={toggleColorPicker}>태그 글자색</strong>
+      {openColor && <SketchPicker color={color} onChange={(color) => colorPicker(color.hex)} />}
+      <strong onClick={toggleBgColorPicker}>태그 배경색</strong>
+      {openBgColor && <SketchPicker color={bgColor} onChange={(color) => bgColorPicker(color.hex)} />}
 
-        <button type='button' onClick={generateTag}>
-          태그 생성하기
-        </button>
-      </div>
+      <button type='button' onClick={generateTag}>
+        태그 생성하기
+      </button>
     </>
   );
 };
