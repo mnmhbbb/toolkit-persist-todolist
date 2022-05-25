@@ -43,7 +43,7 @@ const TodoList = ({ todos }: TodosProps) => {
     <TodoListStyle>
       <ul>
         {todos?.map((todo: Todo) => (
-          <ItemStyle key={todo.id}>
+          <ItemStyle key={todo.id} completed={todo.completed}>
             <div className='group'>
               <Checkbox id={todo.id} isCompleted={todo.completed} />
               <div className='group__right'>

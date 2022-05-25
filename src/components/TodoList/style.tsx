@@ -3,11 +3,14 @@ import { defaultBorderR, defaultMargin } from '../../styles/global';
 
 export const TodoListStyle = styled.div``;
 
-export const ItemStyle = styled.div`
+export const ItemStyle = styled.div<{ completed: boolean }>`
   padding: 1rem;
   border: 1px solid ${(props) => props.theme.colors.border};
   ${defaultBorderR};
   ${defaultMargin};
+
+  background-color: ${(props) => (props.completed ? props.theme.colors.bgColor : '#fff')};
+  opacity: ${(props) => (props.completed ? 0.5 : 1)};
 
   .group {
     display: flex;
