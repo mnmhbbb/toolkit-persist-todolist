@@ -7,8 +7,20 @@ import Completed from './pages/Completed';
 import Created from './pages/Created';
 import Deadline from './pages/Deadline';
 import Tag from './pages/Tag';
+import { useTypedSelector } from './hooks/useTypedSelector';
+import { useEffect } from 'react';
 
 function App() {
+  const { isOpen, isEdit } = useTypedSelector((state) => state.todoSlice);
+
+  useEffect(() => {
+    if (isOpen || isEdit) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'scroll';
+    }
+  }, [isOpen, isEdit]);
+
   return (
     <Container>
       <LayoutStyle>
