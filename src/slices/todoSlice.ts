@@ -27,26 +27,19 @@ const initialState = {
   items: [
     {
       id: 'init',
-      title: '',
-      description: '',
-      completed: false,
+      title: '제목',
+      description: '상세설명',
+      completed: true,
       completedAt: '',
-      createdAt: '',
+      createdAt: '2022-05-26',
       modifiedAt: '',
-      deadline: '',
+      deadline: '2022-05-26',
       dday: 0,
-      tagNameArr: ['tag1', 'tag2'],
+      tagNameArr: ['tag1'],
       tags: [
         {
           id: '1',
           name: 'tag1',
-          color: '#fff',
-          bgColor: '#87abe4',
-          createdAt: '2022-05-22',
-        },
-        {
-          id: '2',
-          name: 'tag2',
           color: '#fff',
           bgColor: '#87abe4',
           createdAt: '2022-05-22',
@@ -58,13 +51,6 @@ const initialState = {
     {
       id: '1',
       name: 'tag1',
-      color: '#fff',
-      bgColor: '#87abe4',
-      createdAt: '2022-05-22',
-    },
-    {
-      id: '2',
-      name: 'tag2',
       color: '#fff',
       bgColor: '#87abe4',
       createdAt: '2022-05-22',
