@@ -72,11 +72,11 @@ const TagGenerator = () => {
 
       <div className='group'>
         <button type='button' onClick={toggleColorPicker}>
-          태그 글자색 선택
+          태그 글자색 {openColor ? '닫기' : '선택'}
         </button>
         {openColor && <SketchPicker color={color} onChange={(color) => colorPicker(color.hex)} />}
         <button type='button' onClick={toggleBgColorPicker}>
-          태그 배경색 선택
+          태그 배경색 {bgColor ? '닫기' : '선택'}
         </button>
         {openBgColor && <SketchPicker color={bgColor} onChange={(color) => bgColorPicker(color.hex)} />}
       </div>
