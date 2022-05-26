@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/toolkit-persist-todolist/static/js/main.af1371f9.js",
+    "main.js": "/toolkit-persist-todolist/static/js/main.1e7968bf.js",
     "index.html": "/toolkit-persist-todolist/index.html",
-    "main.af1371f9.js.map": "/toolkit-persist-todolist/static/js/main.af1371f9.js.map"
+    "main.1e7968bf.js.map": "/toolkit-persist-todolist/static/js/main.1e7968bf.js.map"
   },
   "entrypoints": [
-    "static/js/main.af1371f9.js"
+    "static/js/main.1e7968bf.js"
   ]
 }
