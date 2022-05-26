@@ -19,6 +19,7 @@ export const NavItem = styled.div<{ selected: boolean }>`
     width: 100%;
     ${flexCenter};
     cursor: pointer;
+    white-space: nowrap;
   }
 
   &:hover {
