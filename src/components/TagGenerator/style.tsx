@@ -19,6 +19,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     button {
+      width: 100%;
       font-size: ${(props) => props.theme.fontSize.title};
       padding: 1rem;
     }
