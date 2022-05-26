@@ -109,7 +109,7 @@ const TodoForm = () => {
           </div>
           <div className='group'>
             <label htmlFor='description'>상세설명</label>
-            <input type='text' id='description' value={description} onChange={onChangeDescription} required />
+            <textarea id='description' value={description} onChange={onChangeDescription} required />
           </div>
           <div className='group'>
             <label htmlFor='deadline'>마감일자</label>

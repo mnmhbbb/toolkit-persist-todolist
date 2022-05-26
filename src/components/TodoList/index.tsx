@@ -54,7 +54,7 @@ const TodoList = ({ todos }: TodosProps) => {
                   </span>
                   <strong>{todo.deadline}까지</strong>
                 </div>
-                <div>{todo.description}</div>
+                <div className='desc'>{todo.description}</div>
                 <div className='createdAndModifiedAt'>
                   <span>생성일: {todo.createdAt}</span>
                   <span>{todo.modifiedAt && '(수정일: ' + todo.modifiedAt + ')'}</span>

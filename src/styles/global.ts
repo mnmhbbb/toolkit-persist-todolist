@@ -40,10 +40,23 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     -o-transform: scale(1.5); /* Opera */
     cursor: pointer;
     margin-top: .5rem
-}
+  }
 
   input:focus {
     border: 1px solid${(props) => props.theme.colors.main};
+  }
+
+  textarea {
+    width: 100%;
+    height: 6.25em;
+    resize: none;
+    border: 1px solid ${(props) => props.theme.colors.border};
+    border-radius: .3rem;
+    padding: .5rem;
+  }
+
+  textarea:focus {
+    outline: 1px solid ${(props) => props.theme.colors.main};
   }
 
   ol, ul, li {

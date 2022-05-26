@@ -31,6 +31,10 @@ export const ItemStyle = styled.div<{ completed: boolean }>`
     }
   }
 
+  .desc {
+    white-space: pre-line;
+  }
+
   .createdAndModifiedAt {
     display: flex;
     gap: 0.3rem;
