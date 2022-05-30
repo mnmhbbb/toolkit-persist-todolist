@@ -1,10 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import TodoList from '../components/TodoList';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const Tag = () => {
-  const [searchParams] = useSearchParams();
-  const tagName = searchParams.get('name');
+  const { tagName } = useParams();
+  console.log(tagName);
+
   let todos = useTypedSelector((state) => state.todoSlice.items);
   todos = todos.filter((tag) => {
     return tag.tagNameArr.includes(tagName as string);

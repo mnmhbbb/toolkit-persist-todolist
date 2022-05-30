@@ -31,7 +31,7 @@ function App() {
           <Route path='/completed' element={<Completed />} />
           <Route path='/created' element={<Created />} />
           <Route path='/deadline' element={<Deadline />} />
-          <Route path='/tag' element={<Tag />} />
+          <Route path='/tag/:tagName' element={<Tag />} />
         </Routes>
       </LayoutStyle>
     </Container>

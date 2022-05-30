@@ -34,7 +34,7 @@ const TodoList = ({ todos }: TodosProps) => {
   const searchTag = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       const tagName = (e.target as HTMLElement).textContent;
-      navigate(`/tag?name=${tagName}`);
+      navigate(`/tag/${tagName}`);
     },
     [navigate]
   );
