@@ -113,7 +113,7 @@ export const todoSlice = createSlice({
       state.isOpen = true;
       state.editValue = state.items.filter((todo) => todo.id === action.payload.id);
     },
-    modified(state, action: PayloadAction<Todo>) {
+    modify(state, action: PayloadAction<Todo>) {
       state.items = state.items.filter((todo) => todo.id !== action.payload.id);
       action.payload.id = uuidv4();
       state.items.push(action.payload);
