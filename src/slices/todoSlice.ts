@@ -152,7 +152,7 @@ export const {
   add,
   remove,
   editMode,
-  modified,
+  modify,
   removeCompleted,
   dday,
 } = todoSlice.actions;

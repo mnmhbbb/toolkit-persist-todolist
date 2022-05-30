@@ -23,7 +23,7 @@ const TodoList = ({ todos }: TodosProps) => {
     [dispatch]
   );
 
-  const onModified = useCallback(
+  const onModify = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       const id = (e.target as HTMLButtonElement).dataset.id;
       dispatch(editMode({ id } as Todo));
@@ -72,7 +72,7 @@ const TodoList = ({ todos }: TodosProps) => {
                 </div>
 
                 <ItemButtons>
-                  <button data-id={todo.id} onClick={onModified}>
+                  <button data-id={todo.id} onClick={onModify}>
                     수정
                   </button>
                   <button data-id={todo.id} onClick={removeItem}>

@@ -2,7 +2,7 @@ import { useCallback, useRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { add, dday, modified, Tags, Todo, toggleForm } from '../../slices/todoSlice';
+import { add, dday, modify, Tags, Todo, toggleForm } from '../../slices/todoSlice';
 import Tag from '../Tag';
 import { Container, FormBackground } from './style';
 
@@ -56,7 +56,7 @@ const TodoForm = () => {
         tags,
         tagNameArr,
       };
-      dispatch(modified(obj as Todo));
+      dispatch(modify(obj as Todo));
       dispatch(dday());
     } else {
       const obj = {
